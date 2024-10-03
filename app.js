@@ -3,67 +3,83 @@
 // btnGreat.addEventListener('click', great)
 
 // function great () {
-  //   alert(username.value)
-  // }
-  
-  const username = document.getElementById('nombre')
-  const data1 = document.getElementById('nota1')
-  const data2 = document.getElementById('nota2')
-  const data3 = document.getElementById('nota3')
-  const btnCalculate = document.getElementById('btn-calculate')
-  const response = document.getElementById('resultado')
-  
-  
-  btnCalculate.addEventListener('click', calculateNote )
+//   alert(username.value)
+// }
 
-  function calculateNote(event) {
+const username = document.getElementById('nombre')
+const data1 = document.getElementById('nota1')
+const data2 = document.getElementById('nota2')
+const data3 = document.getElementById('nota3')
+const btnCalculate = document.getElementById('btn-calculate')
+const response = document.getElementById('resultado')
 
-    event.preventDefault()
 
-    let note1 = Number(data1.value)        
-    let note2 = Number(data2.value)        
-    let note3 = Number(data3.value)
-    
+btnCalculate.addEventListener('click', calculateNote)
 
-    let result = ((note1 * 0.3) + (note2 * 0.3) + (note3 * 0.4)).toFixed(2)
+function calculateNote(event) {
 
-    let validation
+  event.preventDefault()
 
-    if (result < 3.5) {
-      validation = "perdió la materia"
-      response.style.color = 'black'
-      response.style.fontWeight = "800"
+  let note1 = Number(data1.value)
+  let note2 = Number(data2.value)
+  let note3 = Number(data3.value)
 
-    } else if (result >= 3.5 && result <=4.5){
-      validation = "ganó la materia"
-      response.style.color = 'orange'
-      
-    } else {
-      validation ="ganó la materia"
-      response.style.color="green"
-    }
-
-    // template string o template literal
-    
-    response.textContent = `${username.value} su nota definitiva es: ${result}, ${validation}`    
-
+  if (note1 < 1 || note1 > 5 || note2 < 1 || note2 > 5 || note3 < 1 || note3 > 5) {
+    response.textContent = "Por favor ingresa notas entre 1 y 5."
+    response.style.color = 'red'
+    return; // Detenemos la ejecución si hay un error
   }
 
-  const btnPredict = document.getElementById("btn-predict")
-  btnPredict.addEventListener("click", predictNote)
 
-  function predictNote(event) {
-    
-    event.preventDefault()
+  let result = ((note1 * 0.3) + (note2 * 0.3) + (note3 * 0.4)).toFixed(2)
 
-    let resultPredict = 3.5 - ((note1 * 0.3) + (note2 * 0.3))
+  let validation
 
-    response.textContent = `${username.value} su nota minima para la tercera nota es: ${resultPredict}`   
+  if (result < 3.5) {
+    validation = "perdió la materia"
+    response.style.color = 'black'
+    response.style.fontWeight = "800"
 
+  } else if (result >= 3.5 && result <= 4.5) {
+    validation = "ganó la materia"
+    response.style.color = 'orange'
 
+  } else {
+    validation = "ganó la materia"
+    response.style.color = "green"
   }
 
-  
+  // template string o template literal
+
+  response.textContent = `${username.value} su nota definitiva es: ${result}, ${validation}`
+
+}
+
+const btnPredict = document.getElementById("btn-predict")
+btnPredict.addEventListener("click", predictNote)
+
+function predictNote(event) {
+
+  event.preventDefault()
+
+  let note1 = Number(data1.value)
+  let note2 = Number(data2.value)
+  let note3 = Number(data3.value)
+
+  if (note1 < 1 || note1 > 5 || note2 < 1 || note2 > 5) {
+    response.textContent = "Por favor ingresa notas entre 1 y 5."
+    response.style.color = 'red'
+    return; // Detenemos la ejecución si hay un error
+  }
+
+  let resultPredict = (3.5 - ((note1 * 0.3) + (note2 * 0.3))) * 2.5
+
+  response.textContent = `${username.value} su nota minima para la tercera nota es: ${resultPredict}`
+
+
+}
+
+
 
 
 
